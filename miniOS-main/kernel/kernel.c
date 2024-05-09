@@ -3,7 +3,6 @@
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
 #include "system.h"
 
 void print_minios(char* str);
@@ -41,8 +40,8 @@ int main() {
             pipe_com();
 	    }
         
-        else if (strcmp(input, "monte_carlo") == 0) {
-            monte_carlo();
+        else if (strcmp(input, "rrs") == 0) {
+            RRS();
         }
 
         else {
@@ -54,7 +53,7 @@ int main() {
     free(input);
     print_minios("[MiniOS SSU] MiniOS Shutdown........");
 
-    return 0;
+    return (1);
 }
 
 void print_minios(char* str) {
