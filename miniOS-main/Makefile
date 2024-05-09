@@ -1,3 +1,4 @@
+# Compiler and Compiler Flags
 CC=gcc
 CFLAGS=-Wall -g -Iinclude
 # Linker flags
