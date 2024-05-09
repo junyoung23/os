@@ -8,7 +8,7 @@ LDFLAGS=-lreadline
 TARGET=minios
 
 # Source, Object files
-SRCS=kernel/kernel.c kernel/system.c kernel/20211089/fork.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/sys_fork.c kernel/syscalls/exec.c kernel/syscalls/process_control.c
+SRCS=kernel/system.c kernel/20211089/fork.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/sys_fork.c kernel/syscalls/exec.c kernel/syscalls/process_control.c
 OBJS=$(SRCS:.c=.o)
 
 # Include directory
@@ -24,19 +24,19 @@ VPATH = kernel:kernel/syscalls:kernel/20211089
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-    $(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 # To obtain object files
 %.o: %.c
-    $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Build and run test
 test: $(TEST_TARGET)
-    ./$(TEST_TARGET)
+	./$(TEST_TARGET)
 
-$(TEST_TARGET): $(filter-out kernel/kernel.o, $(OBJS)) $(TEST_OBJS)
-    $(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+$(TEST_TARGET): $(OBJS) $(TEST_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Clean up:
 clean:
-    rm -f $(OBJS) $(TARGET) $(TEST_OBJS) $(TEST_TARGET)
+	rm -f $(OBJS) $(TARGET) $(TEST_OBJS) $(TEST_TARGET)
