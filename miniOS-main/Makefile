@@ -40,13 +40,13 @@ test: test_syscalls test_event_control
 test_syscalls: $(TEST_SYS_TARGET)
 	./$(TEST_SYS_TARGET)
 
-$(TEST_SYS_TARGET): $(TEST_SYS_OBJS)
+$(TEST_SYS_TARGET): $(OBJS) $(TEST_SYS_OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 test_event_control: $(TEST_EVENT_CONTROL_TARGET)
 	./$(TEST_EVENT_CONTROL_TARGET)
 
-$(TEST_EVENT_CONTROL_TARGET): $(TEST_EVENT_CONTROL_OBJS)
+$(TEST_EVENT_CONTROL_TARGET): $(OBJS) $(TEST_EVENT_CONTROL_OBJS)
 	@echo "Compiling and linking $@"
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 # Clean up
