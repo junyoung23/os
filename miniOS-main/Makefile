@@ -28,7 +28,7 @@ VPATH = kernel:kernel/syscalls:kernel/20211089:lib
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 # Rule for building object files
 %.o: %.c
@@ -40,11 +40,11 @@ test: test_syscalls test_event_control
 test_syscalls: $(TEST_SYS_TARGET)
 	./$(TEST_SYS_TARGET)
 
-test_event_control: $(TEST_EVENT_CONTROL_TARGET)
-	./$(TEST_EVENT_CONTROL_TARGET)
-
 $(TEST_SYS_TARGET): $(TEST_SYS_OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+test_event_control: $(TEST_EVENT_CONTROL_TARGET)
+	./$(TEST_EVENT_CONTROL_TARGET)
 
 $(TEST_EVENT_CONTROL_TARGET): $(TEST_EVENT_CONTROL_OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
