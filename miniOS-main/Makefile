@@ -47,8 +47,8 @@ test_event_control: $(TEST_EVENT_CONTROL_TARGET)
 	./$(TEST_EVENT_CONTROL_TARGET)
 
 $(TEST_EVENT_CONTROL_TARGET): $(TEST_EVENT_CONTROL_OBJS)
+	@echo "Compiling and linking $@"
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	chmod +x $@
 # Clean up
 clean:
 	rm -f $(OBJS) $(TARGET) $(TEST_SYS_OBJS) $(TEST_SYS_TARGET) $(TEST_EVENT_CONTROL_OBJS) $(TEST_EVENT_CONTROL_TARGET)
