@@ -2,41 +2,63 @@
 CC=gcc
 CFLAGS=-Wall -g -Iinclude
 # Linker flags
-LDFLAGS=-lreadline
+LDFLAGS=-lpthread -lreadline
 
 # The build target executable:
 TARGET=minios
 
 # Source, Object files
-SRCS=kernel/system.c kernel/20211089/fork.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/fork.c kernel/syscalls/exec.c kernel/syscalls/process_control.c
+SRCS=kernel/system.c kernel/20211089/fork.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/fork.c kernel/syscalls/exec.c kernel/syscalls/process_control.c lib/event_control.c
 OBJS=$(SRCS:.c=.o)
 
 # Include directory
 INCLUDE_DIR=include
 
-# Test executable
-TEST_TARGET=tests/test_syscalls
-TEST_SRCS=tests/test_syscalls.c
-TEST_OBJS=$(TEST_SRCS:.c=.o)
+# Test executable for systemcall
+TEST_SYS_TARGET=tests/test_syscalls
+TEST_SYS_SRCS=tests/test_syscalls.c
+TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c=.o)
 
-VPATH = kernel:kernel/syscalls:kernel/20211089
+TEST_EVENT_TARGET=tests/event_control_test
+TEST_EVENT_SRCS=tests/event_control_test.c
+TEST_EVENT_OBJS=$(TEST_EVENT_SRCS:.c=.o)
+
+VPATH = kernel:kernel/syscalls:kernel/20211089:lib
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
-# To obtain object files
+# Rule for building object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Build and run test
-test: $(TEST_TARGET)
-	./$(TEST_TARGET)
+# Test build targets
+test: test_syscalls test_event_control
 
-$(TEST_TARGET): $(OBJS) $(TEST_OBJS)
+test_syscalls: $(TEST_SYS_TARGET)
+	./$(TEST_SYS_TARGET)
+
+test_event_control: $(TEST_EVENT_CONTROL_TARGET)
+	./$(TEST_EVENT_CONTROL_TARGET)
+
+$(TEST_SYS_TARGET): $(TEST_SYS_OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
-# Clean up:
+$(TEST_EVENT_CONTROL_TARGET): $(TEST_EVENT_CONTROL_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+# Clean up
 clean:
-	rm -f $(OBJS) $(TARGET) $(TEST_OBJS) $(TEST_TARGET)
+	rm -f $(OBJS) $(TARGET) $(TEST_SYS_OBJS) $(TEST_SYS_TARGET) $(TEST_EVENT_CONTROL_OBJS) $(TEST_EVENT_CONTROL_TARGET)
+
+# Help
+help:
+	@echo "Makefile for building MiniOS project"
+	@echo "Usage:"
+	@echo "  make               # Build the main application"
+	@echo "  make test          # Run all tests"
+	@echo "  make test_syscalls # Run system call tests"
+	@echo "  make test_event_control # Run event control tests"
+	@echo "  make clean         # Clean up all build artifacts"
