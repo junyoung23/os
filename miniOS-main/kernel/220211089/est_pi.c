@@ -7,9 +7,9 @@
 
 long incircle = 0;
 long ppt; // points per thread
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // 여기서만 정의
 
-void *MonteCarlo(void *param) { // threads call this, pointing func.
+void *MonteCarlo(void *param) {
     long incircle_thread = 0;
     unsigned int rand_state = rand();
     long i;
@@ -30,26 +30,18 @@ void *MonteCarlo(void *param) { // threads call this, pointing func.
 }
 
 int Est_PI() {
-    // if (argc != 3) {
-    //     fprintf(stderr, "usage: ./pi <total points> <threads>\n");
-    //     exit(1);
-    // }
     long totalpoints = NUM_POINTS;
     int thread_count = NUM_THREADS;
     ppt = totalpoints / thread_count;
 
     pthread_t *threads = malloc(thread_count * sizeof(pthread_t));
-    pthread_attr_t attr; // set of thread attributes
-    pthread_attr_init(&attr); // set of the default attributes
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
     int i;
 
     for (i = 0; i < thread_count; i++) {
-        // create the thread as NUM_THREADS, which is 4
         pthread_create(&threads[i], &attr, MonteCarlo, (void *) NULL);
-
-        // wait for the thread to exit
         pthread_join(threads[i], NULL);
-
         printf("\n%d. Estimated value of π: %f\n\n", i+1, (4. * (double)incircle) / ((double)ppt * thread_count));
     }
     pthread_mutex_destroy(&mutex);
