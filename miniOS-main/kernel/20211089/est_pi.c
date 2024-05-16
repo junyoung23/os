@@ -1,3 +1,4 @@
+#include "event_control.h" // 이 파일에서 mutex의 extern 선언을 포함합니다.
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +8,6 @@
 
 long incircle = 0;
 long ppt; // points per thread
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // 여기서만 정의
 
 void *MonteCarlo(void *param) {
     long incircle_thread = 0;
