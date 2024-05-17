@@ -14,12 +14,11 @@ OBJS=$(SRCS:.c=.o)
 # Include directory
 INCLUDE_DIR=include
 
-# Test executable for systemcall
+# Test executables for systemcall and event control
 TEST_SYS_TARGET=tests/test_syscalls
 TEST_SYS_SRCS=tests/test_syscalls.c
-TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c:.o)
+TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c=.o)
 
-# Test executable for event control
 TEST_EVENT_TARGET=tests/event_control_test
 TEST_EVENT_SRCS=tests/event_control_test.c
 TEST_EVENT_OBJS=$(TEST_EVENT_SRCS:.c:.o)
@@ -39,15 +38,15 @@ $(TARGET): $(OBJS)
 test: test_syscalls test_event_control
 
 test_syscalls: $(TEST_SYS_TARGET)
-	$(TEST_SYS_TARGET)
+	./$(TEST_SYS_TARGET)
 
-$(TEST_SYS_TARGET): $(filter-out $(TARGET),$(OBJS)) $(TEST_SYS_OBJS)
+$(TEST_SYS_TARGET): $(TEST_SYS_OBJS) $(filter-out kernel/kernel.o,$(OBJS))
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 test_event_control: $(TEST_EVENT_TARGET)
-	$(TEST_EVENT_TARGET)
+	./$(TEST_EVENT_TARGET)
 
-$(TEST_EVENT_TARGET): $(filter-out $(TARGET),$(OBJS)) $(TEST_EVENT_OBJS)
+$(TEST_EVENT_TARGET): $(TEST_EVENT_OBJS) $(filter-out kernel/kernel.o,$(OBJS))
 	@echo "Compiling and linking $@"
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
