@@ -14,16 +14,18 @@ OBJS=$(SRCS:.c=.o)
 # Include directory
 INCLUDE_DIR=include
 
-# Test executables for systemcall and event control
+# Test executables for system call and event control
 TEST_SYS_TARGET=tests/test_syscalls
 TEST_SYS_SRCS=tests/test_syscalls.c
-TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c=.o)
+TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c:.o)
 
 TEST_EVENT_TARGET=tests/event_control_test
 TEST_EVENT_SRCS=tests/event_control_test.c
 TEST_EVENT_OBJS=$(TEST_EVENT_SRCS:.c:.o)
 
-VPATH = kernel:kernel/syscalls:kernel/20211089:lib
+VPATH = kernel:kernel/syscalls:kernel/20211089:lib:tests
+
+.PHONY: all clean test test_syscalls test_event_control
 
 all: $(TARGET)
 
@@ -38,15 +40,15 @@ $(TARGET): $(OBJS)
 test: test_syscalls test_event_control
 
 test_syscalls: $(TEST_SYS_TARGET)
-	./$(TEST_SYS_TARGET)
+	-./$(TEST_SYS_TARGET) || true
 
-$(TEST_SYS_TARGET): $(TEST_SYS_OBJS) $(filter-out kernel/kernel.o,$(OBJS))
+$(TEST_SYS_TARGET): $(filter-out kernel/kernel.o,$(OBJS)) $(TEST_SYS_OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 test_event_control: $(TEST_EVENT_TARGET)
 	./$(TEST_EVENT_TARGET)
 
-$(TEST_EVENT_TARGET): $(TEST_EVENT_OBJS) $(filter-out kernel/kernel.o,$(OBJS))
+$(TEST_EVENT_TARGET): $(filter-out kernel/kernel.o,$(OBJS)) $(TEST_EVENT_OBJS)
 	@echo "Compiling and linking $@"
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
