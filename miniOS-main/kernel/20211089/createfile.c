@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-// close 함수의 명시적 선언
-int close(int fd);
+#include "createfile.h"
 
 int createfile(const char *filename) {
     int fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
