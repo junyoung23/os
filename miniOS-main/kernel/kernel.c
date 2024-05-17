@@ -12,6 +12,7 @@
 void print_minios(char* str);
 int test_syscalls();
 int test_event_control();
+void* thread_wait(void* arg);
 
 int main() {
     print_minios("[MiniOS SSU] Hello, World!");
@@ -84,8 +85,14 @@ int test_syscalls() {
     return 0;
 }
 
+void* thread_wait(void* arg) {
+    printf("Thread waiting for event...\n");
+    wait_for_event();
+    printf("Event received, thread proceeding...\n");
+    return NULL;
+}
+
 int test_event_control() {
-    // tests/event_control_test.c 파일의 내용을 직접 여기에 추가합니다.
     printf("Running event control test\n");
     pthread_t tid;
     printf("Creating thread to wait for event...\n");
@@ -98,11 +105,4 @@ int test_event_control() {
     pthread_join(tid, NULL);  // 스레드 종료 대기
     printf("Test completed.\n");
     return 0;
-}
-
-void* thread_wait(void* arg) {
-    printf("Thread waiting for event...\n");
-    wait_for_event();
-    printf("Event received, thread proceeding...\n");
-    return NULL;
 }
