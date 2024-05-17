@@ -5,5 +5,6 @@ int sys_fork(void);
 int sys_exec(const char *path, char *const argv[], char *const envp[]);
 void sys_exit(int status);
 void sys_abort(void);
+int sys_waitpid(int pid, int *status, int options);
 
 #endif

@@ -1,5 +1,6 @@
 #include "syscall.h"
 #include <stdio.h>
+#include <unistd.h> // getpid 함수를 사용하기 위해 추가
 
 int main() {
     printf("Running test_syscalls\n");

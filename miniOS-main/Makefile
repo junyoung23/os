@@ -8,7 +8,7 @@ LDFLAGS=-lpthread -lreadline
 TARGET=minios
 
 # Source, Object files
-SRCS=kernel/kernel.c kernel/system.c kernel/20211089/fork.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/sys_fork.c kernel/syscalls/sys_exec.c kernel/syscalls/sys_process_control.c lib/event_control.c kernel/20211089/createfile.c
+SRCS=kernel/kernel.c kernel/system.c kernel/20211089/fork.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/sys_fork.c kernel/syscalls/sys_exec.c kernel/syscalls/sys_process_control.c kernel/syscalls/sys_waitpid.c lib/event_control.c kernel/20211089/createfile.c
 OBJS=$(SRCS:.c=.o)
 
 # Include directory
@@ -17,7 +17,7 @@ INCLUDE_DIR=include
 # Test executable for systemcall
 TEST_SYS_TARGET=tests/test_syscalls
 TEST_SYS_SRCS=tests/test_syscalls.c
-TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c=.o)
+TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c:.o)
 
 # Test executable for event control
 TEST_EVENT_TARGET=tests/event_control_test
