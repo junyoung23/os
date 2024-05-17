@@ -2,6 +2,7 @@
 #define EVENT_CONTROL_H
 
 #include <pthread.h>
+#include <stdio.h>
 
 // 외부에서 사용될 변수들을 extern으로 선언
 extern pthread_cond_t cond;
