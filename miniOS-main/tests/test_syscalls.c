@@ -6,7 +6,9 @@ int main() {
     printf("Running test_syscalls\n");
 
     // sys_fork 테스트
+    printf("Before sys_fork\n");
     int pid = sys_fork();
+    printf("After sys_fork, pid: %d\n", pid);
     if (pid == 0) {
         printf("Child process, PID: %d\n", getpid());
     } else {
@@ -15,7 +17,9 @@ int main() {
     }
 
     // sys_abort 테스트
+    printf("Before sys_abort\n");
     sys_abort();
+    printf("After sys_abort\n");
 
     return 0;
 }
