@@ -1,3 +1,4 @@
+#include "event_control_test.h"
 #include "event_control.h"
 #include <pthread.h>
 #include <stdio.h>
@@ -10,7 +11,8 @@ void* thread_wait(void* arg) {
     return NULL;
 }
 
-int main() {
+int test_event_control() {
+    printf("Running event control test\n");
     pthread_t tid;
     printf("Creating thread to wait for event...\n");
     pthread_create(&tid, NULL, thread_wait, NULL);
