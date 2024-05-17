@@ -1,4 +1,3 @@
-// tests/event_control_test.c
 #include "event_control.h"
 #include <pthread.h>
 #include <stdio.h>
