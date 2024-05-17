@@ -1,10 +1,16 @@
+#ifndef SYSTEM_H
+#define SYSTEM_H
 
-// include/linux/sched.h
-//SSU struct task_struct {
+int minisystem();
+int add(char *, char *);
+int Fork();
+int IPC();
+int Est_PI();
+int RRS();
+int createfile(const char *filename);
 
-void minisystem();
-void add(char *, char *);
-void Fork();
-void IPC();
-void Est_PI();
-void RRS();
+// Test functions
+int test_syscalls();
+int test_event_control();
+
+#endif // SYSTEM_H

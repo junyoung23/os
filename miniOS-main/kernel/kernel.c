@@ -7,10 +7,11 @@
 #include "event_control.h"
 #include <pthread.h>
 #include <unistd.h>
+#include "system.h"
 
 void print_minios(char* str);
-void test_syscalls();
-void test_event_control();
+int test_syscalls();
+int test_event_control();
 
 int main() {
     print_minios("[MiniOS SSU] Hello, World!");
@@ -25,6 +26,27 @@ int main() {
             test_syscalls();
         } else if (strcmp(input, "event_control") == 0) {
             test_event_control();
+        } else if (strcmp(input, "minisystem") == 0) {
+            minisystem();
+        } else if (strcmp(input, "add") == 0) {
+            char *a = readline("첫 번째 값 : ");
+            char *b = readline("두 번째 값 : ");
+            add(a, b);
+            free(a);
+            free(b);
+        } else if (strcmp(input, "fork") == 0) {
+            Fork();
+        } else if (strcmp(input, "ipc") == 0) {
+            IPC();
+        } else if (strcmp(input, "est_pi") == 0) {
+            Est_PI();
+        } else if (strcmp(input, "rrs") == 0) {
+            RRS();
+        } else if (strcmp(input, "createfile") == 0) {
+            char filename[256];
+            printf("Enter filename: ");
+            scanf("%s", filename);
+            createfile(filename);
         } else {
             system(input);
         }
@@ -40,7 +62,7 @@ void print_minios(char* str) {
     printf("%s\n", str);
 }
 
-void test_syscalls() {
+int test_syscalls() {
     printf("Running test_syscalls\n");
 
     // sys_fork 테스트
@@ -58,16 +80,13 @@ void test_syscalls() {
     printf("Before sys_abort\n");
     sys_abort();
     printf("After sys_abort\n");
+
+    return 0;
 }
 
-void* thread_wait(void* arg) {
-    printf("Thread waiting for event...\n");
-    wait_for_event();
-    printf("Event received, thread proceeding...\n");
-    return NULL;
-}
-
-void test_event_control() {
+int test_event_control() {
+    // tests/event_control_test.c 파일의 내용을 직접 여기에 추가합니다.
+    printf("Running event control test\n");
     pthread_t tid;
     printf("Creating thread to wait for event...\n");
     pthread_create(&tid, NULL, thread_wait, NULL);
@@ -78,4 +97,12 @@ void test_event_control() {
 
     pthread_join(tid, NULL);  // 스레드 종료 대기
     printf("Test completed.\n");
+    return 0;
+}
+
+void* thread_wait(void* arg) {
+    printf("Thread waiting for event...\n");
+    wait_for_event();
+    printf("Event received, thread proceeding...\n");
+    return NULL;
 }
