@@ -46,6 +46,12 @@ int main() {
         else if (strcmp(input, "rrs") == 0) {
 			RRS();
 		}
+        else if (strcmp(input, "createfile") == 0) {
+    char filename[256];
+    printf("Enter filename: ");
+    scanf("%s", filename);
+    createfile(filename); // createfile 시스템 콜 호출
+}
 
         else system(input);
     }
