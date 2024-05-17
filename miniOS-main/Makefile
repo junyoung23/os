@@ -17,11 +17,11 @@ INCLUDE_DIR=include
 # Test executables for system call and event control
 TEST_SYS_TARGET=tests/test_syscalls
 TEST_SYS_SRCS=tests/test_syscalls.c
-TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c:.o)
+TEST_SYS_OBJS=$(TEST_SYS_SRCS:.c=.o)
 
 TEST_EVENT_TARGET=tests/event_control_test
 TEST_EVENT_SRCS=tests/event_control_test.c
-TEST_EVENT_OBJS=$(TEST_EVENT_SRCS:.c:.o)
+TEST_EVENT_OBJS=$(TEST_EVENT_SRCS:.c=.o)
 
 VPATH = kernel:kernel/syscalls:kernel/20211089:lib:tests
 
@@ -42,15 +42,15 @@ test: test_syscalls test_event_control
 test_syscalls: $(TEST_SYS_TARGET)
 	-./$(TEST_SYS_TARGET) || true
 
-$(TEST_SYS_TARGET): $(TEST_SYS_OBJS) kernel/syscalls/sys_fork.o kernel/syscalls/sys_waitpid.o kernel/syscalls/sys_process_control.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+$(TEST_SYS_TARGET): $(TEST_SYS_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^ $(filter kernel/syscalls/sys_fork.o kernel/syscalls/sys_waitpid.o kernel/syscalls/sys_process_control.o,$(OBJS)) $(LDFLAGS)
 
 test_event_control: $(TEST_EVENT_TARGET)
 	./$(TEST_EVENT_TARGET)
 
-$(TEST_EVENT_TARGET): $(TEST_EVENT_OBJS) kernel/syscalls/sys_fork.o kernel/syscalls/sys_waitpid.o kernel/syscalls/sys_process_control.o
+$(TEST_EVENT_TARGET): $(TEST_EVENT_OBJS)
 	@echo "Compiling and linking $@"
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(filter kernel/syscalls/sys_fork.o kernel/syscalls/sys_waitpid.o kernel/syscalls/sys_process_control.o,$(OBJS)) $(LDFLAGS)
 
 # Clean up
 clean:
