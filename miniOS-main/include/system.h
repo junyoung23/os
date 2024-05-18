@@ -8,9 +8,8 @@ int IPC();
 int Est_PI();
 int RRS();
 int createfile(const char *filename);
-
-// Test functions
-int test_syscalls();
-int test_event_control();
+int Exec();
+int Abort();
+int Exit(int status);
 
 #endif // SYSTEM_H

@@ -1,25 +1,25 @@
 #include <sys/types.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include "system.h"
 
-// sys_fork 함수는 자식 프로세스를 생성하고, 자식과 부모의 PID를 출력합니다.
-int sys_fork(void) {
+int Fork() {
     pid_t pid;
-    pid = fork(); // 실제 fork() 호출
+    // fork a child process
+    pid = fork();
 
-    if (pid == -1) {
-        // fork 실패 시
-        perror("Fork failed");
-        return -1;
-    }
-    else if (pid == 0) {
-        // 자식 프로세스에서 실행될 코드
-        printf("Child process, PID: %d\n", getpid());
-    }
-    else {
-        // 부모 프로세스에서 실행될 코드
-        printf("Parent process, PID: %d, Child PID: %d\n", getpid(), pid);
+    if (pid < 0) {
+        fprintf(stderr, "Fork Failed\n");
+        return 1;
+    } else if (pid == 0) {
+        execlp("/bin/ls", "ls", NULL);
+    } else {
+        // parent will wait for the child to complete
+        wait(NULL);
+        printf("Child Complete\n");
     }
 
-    return pid; // 부모는 자식의 PID를, 자식은 0을 반환
+    return 0;
 }
+ 

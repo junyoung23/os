@@ -3,15 +3,10 @@
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "syscall.h"
-#include "event_control.h"
-#include "event_control_test.h"
-#include <pthread.h>
 #include <unistd.h>
 #include "system.h"
 
 void print_minios(char* str);
-int test_syscalls();
 
 int main() {
     print_minios("[MiniOS SSU] Hello, World!");
@@ -22,10 +17,6 @@ int main() {
 
         if (strcmp(input, "exit") == 0) {
             break;
-        } else if (strcmp(input, "syscalls") == 0) {
-            test_syscalls();
-        } else if (strcmp(input, "event_control") == 0) {
-            test_event_control();
         } else if (strcmp(input, "minisystem") == 0) {
             minisystem();
         } else if (strcmp(input, "add") == 0) {
@@ -36,6 +27,15 @@ int main() {
             free(b);
         } else if (strcmp(input, "fork") == 0) {
             Fork();
+        } else if (strcmp(input, "exec") == 0) {
+            Exec();
+        } else if (strcmp(input, "abort") == 0) {
+            Abort();
+        } else if (strcmp(input, "exit_program") == 0) { // "exit"는 프로그램 종료로 사용되므로 "exit_program"으로 변경
+            int status;
+            printf("Enter exit status: ");
+            scanf("%d", &status);
+            Exit(status);
         } else if (strcmp(input, "ipc") == 0) {
             IPC();
         } else if (strcmp(input, "est_pi") == 0) {
@@ -60,26 +60,4 @@ int main() {
 
 void print_minios(char* str) {
     printf("%s\n", str);
-}
-
-int test_syscalls() {
-    printf("Running test_syscalls\n");
-
-    // sys_fork 테스트
-    printf("Before sys_fork\n");
-    int pid = sys_fork();
-    printf("After sys_fork, pid: %d\n", pid);
-    if (pid == 0) {
-        printf("Child process, PID: %d\n", getpid());
-    } else {
-        printf("Parent process, PID: %d, Child PID: %d\n", getpid(), pid);
-        sys_waitpid(pid, NULL, 0);
-    }
-
-    // sys_abort 테스트
-    printf("Before sys_abort\n");
-    sys_abort();
-    printf("After sys_abort\n");
-
-    return 0;
 }
