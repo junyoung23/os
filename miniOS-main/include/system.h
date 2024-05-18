@@ -11,5 +11,6 @@ int createfile(const char *filename);
 int Exec();
 int Abort();
 int Exit(int status);
+int wait_time(int seconds);
 
 #endif // SYSTEM_H

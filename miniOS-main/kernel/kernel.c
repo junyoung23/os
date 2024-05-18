@@ -5,6 +5,7 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include "system.h"
+#include "event_control.h"
 
 void print_minios(char* str);
 
@@ -14,8 +15,12 @@ int main() {
 
     while (1) {
         input = readline("커맨드를 입력하세요(종료:exit) : ");
+        if (input == NULL) {
+            break;
+        }
 
         if (strcmp(input, "exit") == 0) {
+            free(input);
             break;
         } else if (strcmp(input, "minisystem") == 0) {
             minisystem();
@@ -31,7 +36,7 @@ int main() {
             Exec();
         } else if (strcmp(input, "abort") == 0) {
             Abort();
-        } else if (strcmp(input, "exit_program") == 0) { // "exit"는 프로그램 종료로 사용되므로 "exit_program"으로 변경
+        } else if (strcmp(input, "exit_program") == 0) {
             int status;
             printf("Enter exit status: ");
             scanf("%d", &status);
@@ -47,6 +52,15 @@ int main() {
             printf("Enter filename: ");
             scanf("%s", filename);
             createfile(filename);
+        } else if (strcmp(input, "wait_time") == 0) {
+            int seconds;
+            printf("Enter wait time in seconds: ");
+            scanf("%d", &seconds);
+            wait_time(seconds);
+        } else if (strcmp(input, "wait_event") == 0) {
+            wait_for_event();
+        } else if (strcmp(input, "signal_event") == 0) {
+            signal_event();
         } else {
             system(input);
         }
