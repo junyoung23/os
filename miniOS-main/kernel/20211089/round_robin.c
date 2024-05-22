@@ -31,15 +31,24 @@ void runner_RRS(Process processes[], int num_processes, int time_slice) {
     }
 }
 
-int RRS() {
-    Process processes[] = {
-        {'1', 0, 8},
-        {'2', 1, 4},
-        {'3', 2, 9},
-        {'4', 3, 5}
-    };
-    int num_processes = sizeof(processes) / sizeof(processes[0]);
-    int time_slice = 3;
+int main() {
+    int num_processes;
+    int time_slice;
+    Process processes[MAX_PROCESSES];
+
+    printf("Enter the number of processes: ");
+    scanf("%d", &num_processes);
+
+    for (int i = 0; i < num_processes; i++) {
+        processes[i].name = 'A' + i; // Assigning names 'A', 'B', 'C', ...
+        printf("Enter arrival time for process %c: ", processes[i].name);
+        scanf("%d", &processes[i].arrival_time);
+        printf("Enter burst time for process %c: ", processes[i].name);
+        scanf("%d", &processes[i].burst_time);
+    }
+
+    printf("Enter the time slice: ");
+    scanf("%d", &time_slice);
 
     printf("Running Round Robin Scheduler:\n");
     runner_RRS(processes, num_processes, time_slice);
