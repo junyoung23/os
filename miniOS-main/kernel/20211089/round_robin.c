@@ -31,7 +31,7 @@ void runner_RRS(Process processes[], int num_processes, int time_slice) {
     }
 }
 
-int main() {
+int RRS() {
     int num_processes;
     int time_slice;
     Process processes[MAX_PROCESSES];
