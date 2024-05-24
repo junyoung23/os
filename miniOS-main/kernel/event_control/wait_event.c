@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <unistd.h>  // for sleep
 
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 void wait_for_event() {
     pthread_mutex_lock(&mutex);  // 뮤텍스로 보호
     printf("Waiting for event...\n");
