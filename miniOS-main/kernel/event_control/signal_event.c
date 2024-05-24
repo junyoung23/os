@@ -1,6 +1,5 @@
 #include "event_control.h"
 #include <stdio.h>
-#include "system.h"
 
 void signal_event() {
     pthread_mutex_lock(&mutex);  // 뮤텍스로 보호

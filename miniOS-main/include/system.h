@@ -1,6 +1,10 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
+
 #include <pthread.h>
+
+extern pthread_cond_t cond;
+extern pthread_mutex_t mutex;
 
 int minisystem();
 int add(char *, char *);
@@ -13,8 +17,7 @@ int Exec();
 int Abort();
 int Exit(int status);
 int wait_time(int seconds);
-
-extern pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-extern pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+void wait_for_event();
+void signal_event();
 
 #endif // SYSTEM_H
