@@ -1,5 +1,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
+#include <pthread.h>
 
 int minisystem();
 int add(char *, char *);
