@@ -20,7 +20,7 @@ int wait_time(int seconds);
 void wait_for_event();
 void signal_event();
 int Wait();
-int Kill();
+int Kill(pid_t pid, int sig)
 int GetPID();
 int GetPPID()
 
