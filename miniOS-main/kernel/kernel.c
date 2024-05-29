@@ -61,6 +61,20 @@ int main() {
             wait_for_event();
         } else if (strcmp(input, "signal_event") == 0) {
             signal_event();
+        } else if (strcmp(input, "kill") == 0) {
+            pid_t pid;
+            int sig;
+            printf("Enter PID: ");
+            scanf("%d", &pid);
+            printf("Enter signal: ");
+            scanf("%d", &sig);
+            Kill(pid, sig);
+        } else if (strcmp(input, "getpid") == 0) {
+            GetPID();
+        } else if (strcmp(input, "getppid") == 0) {
+            GetPPID();
+        } else if (strcmp(input, "wait") == 0) {
+            Wait();
         } else {
             system(input);
         }

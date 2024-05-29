@@ -19,5 +19,9 @@ int Exit(int status);
 int wait_time(int seconds);
 void wait_for_event();
 void signal_event();
+int Wait();
+int Kill();
+int GetPID();
+int GetPPID()
 
 #endif // SYSTEM_H
