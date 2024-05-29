@@ -1,6 +1,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "system.h"
 
 int Kill(pid_t pid, int sig) {
     if (kill(pid, sig) == -1) {

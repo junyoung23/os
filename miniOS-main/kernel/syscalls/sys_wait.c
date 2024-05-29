@@ -1,6 +1,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdio.h>
+#include "system.h"
 
 int Wait() {
     int status;
