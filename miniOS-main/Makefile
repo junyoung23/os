@@ -8,18 +8,26 @@ LDFLAGS=-lpthread -lreadline
 TARGET=minios
 
 # Source, Object files
-SRCS=kernel/kernel.c kernel/system.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/sys_fork.c kernel/syscalls/sys_exec.c kernel/syscalls/sys_abort.c kernel/syscalls/sys_exit.c kernel/20211089/createfile.c kernel/event_control/wait_time.c kernel/event_control/wait_event.c kernel/event_control/signal_event.c kernel/syscalls/sys_getpid.c kernel/syscalls/sys_getppid.c kernel/syscalls/sys_kill.c kernel/syscalls/sys_wait.c
+SRCS=kernel/kernel.c kernel/system.c kernel/20211089/ipc.c kernel/20211089/est_pi.c kernel/20211089/round_robin.c kernel/syscalls/sys_fork.c kernel/syscalls/sys_exec.c kernel/syscalls/sys_abort.c kernel/syscalls/sys_exit.c kernel/syscalls/sys_waitpid.c kernel/20211089/createfile.c kernel/event_control/wait_time.c kernel/event_control/wait_event.c kernel/event_control/signal_event.c kernel/syscalls/sys_getpid.c kernel/syscalls/sys_getppid.c kernel/syscalls/sys_kill.c kernel/syscalls/sys_wait.c
 OBJS=$(SRCS:.c=.o)
 
 # Include directory
 INCLUDE_DIR=include
 
+# Test target
+TEST_TARGET=test_process
+TEST_SRCS=tests/test_process.c
+TEST_OBJS=$(TEST_SRCS:.c=.o)
+
 .PHONY: all clean
 
-all: $(TARGET)
+all: $(TARGET) $(TEST_TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
+
+$(TEST_TARGET): $(TEST_OBJS)
+	$(CC) $(CFLAGS) -o $@ $(TEST_OBJS) $(LDFLAGS)
 
 # Rule for building object files
 %.o: %.c
@@ -27,7 +35,7 @@ $(TARGET): $(OBJS)
 
 # Clean up
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(TARGET) $(TEST_OBJS) $(TEST_TARGET)
 
 # Help
 help:
