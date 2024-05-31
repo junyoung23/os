@@ -5,7 +5,6 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include "system.h"
-#include "event_control.h"
 
 void print_minios(char* str);
 
@@ -106,6 +105,11 @@ int main() {
             Wait();
         } else if (strcmp(input, "test_process") == 0) {
             run_test_process();
+        } else if (strcmp(input, "readfile") == 0) {
+            char filename[256];
+            printf("Enter filename: ");
+            scanf("%s", filename);
+            ReadFile(filename);
         } else {
             system(input);
         }
