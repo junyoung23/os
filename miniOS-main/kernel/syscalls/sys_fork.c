@@ -5,9 +5,7 @@
 #include "system.h"
 
 int Fork() {
-    pid_t pid;
-    // fork a child process
-    pid = fork();
+    pid_t pid = fork();
 
     if (pid < 0) {
         fprintf(stderr, "Fork Failed\n");
@@ -15,8 +13,7 @@ int Fork() {
     } else if (pid == 0) {
         execlp("/bin/ls", "ls", NULL);
     } else {
-        // parent will wait for the child to complete
-        wait(NULL);
+        wait(NULL); // 부모 프로세스가 자식 프로세스의 종료를 기다림
         printf("Child Complete\n");
     }
 
