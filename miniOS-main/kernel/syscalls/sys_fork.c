@@ -1,8 +1,11 @@
+#include "system.h"
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "system.h"
+
+// 전역 변수 선언
+int child_exists = 0;
 
 int Fork() {
     pid_t pid = fork();
@@ -11,12 +14,12 @@ int Fork() {
         fprintf(stderr, "Fork Failed\n");
         return 1;
     } else if (pid == 0) {
+        // 자식 프로세스 코드
         execlp("/bin/ls", "ls", NULL);
     } else {
-        wait(NULL); // 부모 프로세스가 자식 프로세스의 종료를 기다림
-        printf("Child Complete\n");
+        // 부모 프로세스 코드
+        child_exists = 1; // 자식 프로세스가 생성되었음을 표시
     }
 
     return 0;
 }
- 
