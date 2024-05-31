@@ -15,7 +15,11 @@ int Fork() {
         return 1;
     } else if (pid == 0) {
         // 자식 프로세스 코드
-        execlp("/bin/ls", "ls", NULL);
+        printf("In child process. PID: %d\n", getpid());
+        if (execlp("/bin/echo", "echo", "Hello from child process!", NULL) == -1) {
+            perror("Exec failed");
+        }
+        _exit(1);  // Exec 실패 시 자식 프로세스 종료
     } else {
         // 부모 프로세스 코드
         child_exists = 1; // 자식 프로세스가 생성되었음을 표시
