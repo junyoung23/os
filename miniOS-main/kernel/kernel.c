@@ -4,6 +4,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
+#include <sys/wait.h> // waitpid 함수의 선언을 포함합니다.
 #include "system.h"
 
 void print_minios(char* str);
