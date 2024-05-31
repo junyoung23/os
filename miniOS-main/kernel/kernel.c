@@ -27,8 +27,11 @@ void run_test_process() {
     } else {
         // 부모 프로세스: 자식 프로세스 기다림 (wait)
         printf("In parent process. PID: %d, Child PID: %d\n", getpid(), pid);
-        if (Wait() == 0) {
-            printf("Child process completed.\n");
+        int status;
+        if (waitpid(pid, &status, 0) == -1) {
+            perror("waitpid failed");
+        } else {
+            printf("Child process %d terminated with status %d\n", pid, status);
         }
     }
 
