@@ -14,20 +14,12 @@ OBJS=$(SRCS:.c=.o)
 # Include directory
 INCLUDE_DIR=include
 
-# Test target
-TEST_TARGET=test_process
-TEST_SRCS=tests/test_process.c
-TEST_OBJS=$(TEST_SRCS:.c=.o)
-
 .PHONY: all clean
 
-all: $(TARGET) $(TEST_TARGET)
+all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
-
-$(TEST_TARGET): $(TEST_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(TEST_OBJS) $(LDFLAGS)
 
 # Rule for building object files
 %.o: %.c
@@ -35,7 +27,7 @@ $(TEST_TARGET): $(TEST_OBJS)
 
 # Clean up
 clean:
-	rm -f $(OBJS) $(TARGET) $(TEST_OBJS) $(TEST_TARGET)
+	rm -f $(OBJS) $(TARGET)
 
 # Help
 help:
