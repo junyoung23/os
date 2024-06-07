@@ -41,5 +41,3 @@ O   └── lib/                # 라이브러리 헤더 파일
 └── scripts/                # 빌드 및 유틸리티 스크립트  
 O   ├── build.sh            # 빌드 스크립트  
 O   └── run_qemu.sh         # QEMU를 통해 OS 이미지 실행 스크립트  
-
-
