@@ -7,33 +7,33 @@ miniOS-project/
 O   └── boot.asm            # 부트로더 어셈블리 코드  
 ├── kernel/                 # 커널 소스 코드  
 O   ├── kernel.c            # 커널 메인 C 소스 파일
-O   ├── process.c           # 
-O   ├── system.c            # 
-O   └── OS_project/         # 운영체제 프로젝트 파일
-O       ├── IPC_R.c         # 공유 메모리에서 메세지 출력 코드
-O       ├── IPC_W.c         # 공유 메모리 생성 및 메세지 저장 코드
-O       ├── OS_brk.c        # 
-O       ├── OS_time.c       #
-O       ├── creatfile.c     #
-O       ├── deletefile.c    #
-O       ├── event_control.h #
-O       ├── signal_event.c  #
-O       ├── sys_abort.c     # abort 실행 코드
-O       ├── sys_exec.c      # 프로세스 실행 코드
-O       ├── sys_exit.c      # 프로세스 종료 코드
-O       ├── sys_fork.c      # fork 생성 코드
-O       ├── sys_getpid.c    # 현재 프로세스 ID 출력 코드 
-O       ├── sys_getppid.c   # 부모 프로세스 ID 출력 코드
-O       ├── sys_kill.c      # 특정 프로세스에 시그널 입력 코드 
-O       ├── sys_wait.c      # 자식 프로세스의 종료 대기 코드  
-O       ├── syscall.h       # 시스템콜 헤더파일
-O       ├── wait_event.c    # 이벤트 발생까지 블로킹 상태 대기 코드
-O       ├── wait_time.c     # 지정 시간 동안 대기 코드
-O       └── writefile.c     # 파일에 데이터 작성
+O   ├── process.c           #   
+O   ├── system.c            #   
+O   └── OS_project/         # 운영체제 프로젝트 파일  
+O       ├── IPC_R.c         # 공유 메모리에서 메세지 출력 코드  
+O       ├── IPC_W.c         # 공유 메모리 생성 및 메세지 저장 코드  
+O       ├── OS_brk.c        #   
+O       ├── OS_time.c       #  
+O       ├── creatfile.c     #  
+O       ├── deletefile.c    #  
+O       ├── event_control.h #  
+O       ├── signal_event.c  #  
+O       ├── sys_abort.c     # abort 실행 코드  
+O       ├── sys_exec.c      # 프로세스 실행 코드  
+O       ├── sys_exit.c      # 프로세스 종료 코드  
+O       ├── sys_fork.c      # fork 생성 코드  
+O       ├── sys_getpid.c    # 현재 프로세스 ID 출력 코드  
+O       ├── sys_getppid.c   # 부모 프로세스 ID 출력 코드  
+O       ├── sys_kill.c      # 특정 프로세스에 시그널 입력 코드    
+O       ├── sys_wait.c      # 자식 프로세스의 종료 대기 코드    
+O       ├── syscall.h       # 시스템콜 헤더파일  
+O       ├── wait_event.c    # 이벤트 발생까지 블로킹 상태 대기 코드  
+O       ├── wait_time.c     # 지정 시간 동안 대기 코드  
+O       └── writefile.c     # 파일에 데이터 작성  
 ├── drivers/                # 디바이스 드라이버 코드  
-O   └── basic_driver.c      # 기본 드라이버 
+O   └── basic_driver.c      # 기본 드라이버  
 ├── lib/                    # 커널 라이브러리 및 공통 유틸리티  
-O   └── basic_lib.c         # 기본 라이브러리
+O   └── basic_lib.c         # 기본 라이브러리  
 ├── include/                # 헤더 파일  
 O   ├── kernel.h            # 커널 관련 공통 헤더  
 O   ├── drivers/            # 드라이버 헤더 파일  
