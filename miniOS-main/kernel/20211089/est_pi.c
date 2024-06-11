@@ -1,4 +1,4 @@
-#include "system.h" 
+#include "event_control.h" // 이 파일에서 mutex의 extern 선언을 포함합니다.
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -4,9 +4,10 @@
 #include <pthread.h>
 #include <sys/types.h>
 
-// 전역 변수 선언
 extern pthread_cond_t cond;
 extern pthread_mutex_t mutex;
+
+// 전역 변수 선언
 extern int child_exists;
 
 int minisystem();
@@ -26,6 +27,5 @@ int Exit(int status);
 int wait_time(int seconds);
 void wait_for_event();
 void signal_event();
-int ReadFile(const char *filename);
 
 #endif // SYSTEM_H
